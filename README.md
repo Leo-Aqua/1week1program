@@ -1,4 +1,4 @@
-# 1week1program
+# 1week7programs
 
 This is a challenge I set up myself for the hollydays. It's simple, One program a day for one entire week. 
 Theme: anything!
