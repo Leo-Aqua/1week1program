@@ -15,3 +15,7 @@ Open `doc scanner` and run `doc_scanner.py`. Edit `image_path` to scan your own 
 
 ## Day 2 (11. Feb 2024)
 ### Music Player
+It really is as simple as it gets.
+
+#### Usage
+Open `music_player` and run `music.py`, select your song and hit play!
