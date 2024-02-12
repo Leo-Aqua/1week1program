@@ -4,6 +4,7 @@ import re
 import matplotlib.pyplot as plt
 import numpy as np
 import sympy as sp
+from matplotlib import cm
 
 def contains_letter(string):
     return bool(re.search('[a-zA-Z]', string))
@@ -47,6 +48,36 @@ def plot2d(equation):
     plt.close()
 
 
+def plot3d(equation):
+     
+    def f(x, y, equation):
+        return eval(equation)
+
+    x = np.linspace(-6, 6, 30)
+    y = np.linspace(-6, 6, 30)
+
+    X, Y = np.meshgrid(x, y)
+
+    # Replace operators with numpy equivalents
+    equation = equation.replace('sin', 'np.sin')
+    equation = equation.replace('cos', 'np.cos')
+    equation = equation.replace('tan', 'np.tan')
+    equation = equation.replace('sqrt', 'np.sqrt')
+    equation = equation.replace('exp', 'np.exp')
+    equation = equation.replace('log', 'np.log')
+
+    try:
+        Z = f(X, Y, equation)
+        fig = plt.figure(num = 'Plot 3D')
+        ax = plt.axes(projection='3d')
+        ax.plot_surface(X, Y, Z, cmap=cm.plasma)
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        ax.set_zlabel('z')
+        plt.show()
+    except Exception as e:
+        print("Error:", e)
+
 def solve_equation(equation_str):
    
     try:
@@ -74,10 +105,10 @@ layout = [  [sg.InputText('output',readonly=True, expand_x=True, key="-OUTPUT-")
             [sg.Text('Enter Expression:')],
             [sg.InputText( key="-INPUT-", )],
             [sg.Button('Ok'), sg.Button('Cancel')],
-            [sg.Text('Select Mode:'), sg.Radio('Normal', "RADIO", key='-NORMAL-', default=True), sg.Radio('Plot 2D', "RADIO", key='-PLOT2D-'), sg.Radio('Verify', "RADIO", key='-VERIFY-'), sg.Radio('Solve x', "RADIO", key='-SOLVE-')] ]
+            [sg.Text('Select Mode:'), sg.Radio('Normal', "RADIO", key='-NORMAL-', default=True, tooltip="Normal Mode\nCan do simple math and has every function from the math module like sqrt(), tan(), sin(), cos() etc.\nTipp use ** for exponents"), sg.Radio('Plot 2D', "RADIO", key='-PLOT2D-', tooltip="Plot 2D Mode\nCan plot 2D graphs\nUse 'x' as variable\nHas every function from the math module like sqrt(), tan(), sin(), cos() etc\nExample: sin(x)"), sg.Radio('Plot 3D', "RADIO", key='-PLOT3D-', tooltip="Plot 3D Mode\nCan plot 3D graphs\nUse 'x' and 'y' as variable\nhas every function from the math module like sqrt(), tan(), sin(), cos() etc\nExample: sin(x)*cos(y)"), sg.Radio('Verify', "RADIO", key='-VERIFY-', tooltip="Checks if an expression is true\nhas every function from the math module like sqrt(), tan(), sin(), cos() etc\nExample: 2+2=4"), sg.Radio('Solve x', "RADIO", key='-SOLVE-', tooltip="Solves an equation for x\nhas every function from the math module like sqrt(), tan(), sin(), cos() etc\nExample: 3*x/4=11")] ]
 
 # Create the Window
-window = sg.Window('Window Title', layout)
+window = sg.Window('Advanced Calculator', layout)
 # varibles for different modes
 
 
@@ -96,6 +127,8 @@ while True:
             solve_equation(values['-INPUT-'])
         elif values["-VERIFY-"]:
             window['-OUTPUT-'].update(str(eval(str(values['-INPUT-']).replace("==", "=").replace("=", "=="))))
+        elif values["-PLOT3D-"]:
+            plot3d(values['-INPUT-'])
     except Exception as ex:
         window['-OUTPUT-'].update("Error: " + str(ex))
 

@@ -22,5 +22,16 @@ Open `music_player` and run `music.py`, select your song and hit play!
 
 ## Day 3 (12. Feb 2024)
 ### Calculator
-It's just a simple calaculator
-Supptorts operations like abs() and sqrt()
+Pretty advanced but still simple calculator
+Supptorts all math (module) operations.
+
+Modes:
+> Normal
+> Plot2D
+> Plot3D
+> Verify
+> Solve x
+
+#### Usage
+Open `advanced_calculator` and run `calc.py`.
+Slelect mode and enter your expression. Hit enter to calculate.
