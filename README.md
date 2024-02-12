@@ -19,3 +19,8 @@ It really is as simple as it gets.
 
 #### Usage
 Open `music_player` and run `music.py`, select your song and hit play!
+
+## Day 3 (12. Feb 2024)
+### Calculator
+It's just a simple calaculator
+Supptorts operations like abs() and sqrt()
