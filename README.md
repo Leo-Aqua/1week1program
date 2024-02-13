@@ -35,3 +35,11 @@ Modes:
 #### Usage
 Open `advanced_calculator` and run `calc.py`.
 Slelect mode and enter your expression. Hit enter to calculate.
+
+## Day 4 (13. Feb 2024)
+### Weather app
+A simple weather app that uses weatherapi.com's API.
+### Usage
+1. Sign up [here](https://www.weatherapi.com/signup.aspx) to get you free api key
+2. 2 Run the Progam and paste it in the api key field and hit save for later use
+3. Type in your region select it from the listbox and hit ok
