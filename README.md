@@ -26,10 +26,15 @@ Pretty advanced but still simple calculator
 Supptorts all math (module) operations.
 
 Modes:
+
 > Normal
+
 > Plot2D
+
 > Plot3D
+
 > Verify
+
 > Solve x
 
 #### Usage
