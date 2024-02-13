@@ -27,15 +27,15 @@ Supptorts all math (module) operations.
 
 Modes:
 
-> Normal
+- Normal
 
-> Plot2D
+- Plot2D
 
-> Plot3D
+- Plot3D
 
-> Verify
+- Verify
 
-> Solve x
+- Solve x
 
 #### Usage
 Open `advanced_calculator` and run `calc.py`.
