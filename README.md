@@ -43,3 +43,12 @@ A simple weather app that uses weatherapi.com's API.
 1. Sign up [here](https://www.weatherapi.com/signup.aspx) to get you free api key
 2. 2 Run the Progam and paste it in the api key field and hit save for later use
 3. Type in your region select it from the listbox and hit ok
+   
+## Day 5 (14. Feb 2024)
+### Offline Geolocation
+Yup it really works. (as long as you aren't in space. sorry NASA)
+### Usage
+1. Open `Offline_Geolocation` and run `main.py`.
+2. Hit `OK`
+
+###### Yes I'm running out of ideas
