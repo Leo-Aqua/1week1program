@@ -26,11 +26,16 @@ Pretty advanced but still simple calculator
 Supptorts all math (module) operations.
 
 Modes:
-> Normal
-> Plot2D
-> Plot3D
-> Verify
-> Solve x
+
+- Normal
+
+- Plot2D
+
+- Plot3D
+
+- Verify
+
+- Solve x
 
 #### Usage
 Open `advanced_calculator` and run `calc.py`.
