@@ -34,20 +34,14 @@ while True:  # Event Loop
             if start == "STOP":
                 run=False
 
-            if speed > 0:  # Increment
-                progress += speed
-                if progress >= end:
-                    progress_index = (progress_index + 1) % len(progress_settings)
-            else:  # Decrement
-                progress += speed
-                if progress <= end:
-                    progress_index = (progress_index + 1) % len(progress_settings)
-            
+            progress += speed
+            if speed > 0 and progress >= end or speed <= 0 and progress <= end:
+                progress_index = (progress_index + 1) % len(progress_settings)
             window['progbar'].update_bar(int(progress))
     except TypeError:
         window['progbar'].update(visible=False)
         window['_TEXT_'].update(visible=True)
-        
+
 
     if event == "-START-":
         run = True

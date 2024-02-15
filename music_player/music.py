@@ -15,15 +15,15 @@ def extract_cover_art(file_path):
             # Extract the first APIC frame (cover art)
             apic = tags['APIC:'].data
             # Write the cover art to a file
-            
+
             with open(os.path.dirname(os.path.realpath(__file__)) + "\cover_art.jpg", "wb") as f:
                 f.write(apic)
             found_cover = True
         else:
             found_cover = False
-            
+
     except Exception as e:
-        print("An error occurred:", str(e))
+        print("An error occurred:", e)
 found_cover = False
 class MusicPlayer:
     def __init__(self, root):

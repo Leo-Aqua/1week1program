@@ -16,10 +16,12 @@ def api(event):
     
     global link1
     curItem = tree.focus()
-    
+
     current_id = tree.item(curItem)["values"][0]
 
-    response = requests.get("https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + str(current_id))
+    response = requests.get(
+        f"https://www.themealdb.com/api/json/v1/1/lookup.php?i={str(current_id)}"
+    )
     json_data = response.json()
     Mealinfostr = f"""
 Name: {json_data.get("meals")[0].get("strMeal")}
@@ -29,20 +31,20 @@ Region: {json_data.get("meals")[0].get("strArea")}
     Mealinfo.configure(text=Mealinfostr)
     instructionbox.delete(1.0, tk.END)
     instructionbox.insert(tk.INSERT, json_data.get("meals")[0].get("strInstructions"))
-    
+
 
     thumbnail_image = ImageTk.PhotoImage(Image.open(os.path.dirname(os.path.realpath(__file__)) + "\\thumbnails\\" + str(current_id) + ".jpg").resize((200, 200)))
-    
+
     thumbnail.configure(image=thumbnail_image)
     thumbnail.image = thumbnail_image
-    
+
     ingredientbox.delete(1.0, tk.END)
-    if json_data.get("meals")[0].get("strYoutube") != None:
-        
+    if json_data.get("meals")[0].get("strYoutube") is None:
+        link1 = tk.Label(root, text="No YouTube video available", fg="gray")
+    else:
+
         link1.pack()
         link1.bind("<Button-1>", lambda e: callback(json_data.get("meals")[0].get("strYoutube")))
-    else:
-        link1 = tk.Label(root, text="No YouTube video available", fg="gray")
     for i in range(20):
         try:
             if json_data.get("meals")[0].get(f"strIngredient{i+1}") != "":
@@ -51,7 +53,11 @@ Region: {json_data.get("meals")[0].get("strArea")}
             pass
 
 def download_image(meal):
-    thumbnail_path = os.path.dirname(os.path.realpath(__file__)) + "/thumbnails/" + meal.get("idMeal", "") + ".jpg"
+    thumbnail_path = (
+        f"{os.path.dirname(os.path.realpath(__file__))}/thumbnails/"
+        + meal.get("idMeal", "")
+        + ".jpg"
+    )
     if not os.path.exists(thumbnail_path):
         with open(thumbnail_path, "wb") as f:
             response = requests.get(meal.get("strMealThumb", ""))
@@ -73,19 +79,19 @@ def on_entry_key_release(event):
     delete_all_items()
     meals.clear()
     if search_type.get() == 1:
-        url = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + entry.get()
+        url = f"https://www.themealdb.com/api/json/v1/1/search.php?s={entry.get()}"
     elif search_type.get() == 2:
-        url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" + entry.get()
+        url = f"https://www.themealdb.com/api/json/v1/1/filter.php?c={entry.get()}"
     elif search_type.get() == 3:
-        url = "https://www.themealdb.com/api/json/v1/1/filter.php?a=" + entry.get()
+        url = f"https://www.themealdb.com/api/json/v1/1/filter.php?a={entry.get()}"
     elif search_type.get() == 4:
-        url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + entry.get()
+        url = f"https://www.themealdb.com/api/json/v1/1/lookup.php?i={entry.get()}"
     elif search_type.get() == 5:
-        url = "https://www.themealdb.com/api/json/v1/1/filter.php?i=" + entry.get()
+        url = f"https://www.themealdb.com/api/json/v1/1/filter.php?i={entry.get()}"
     response = requests.get(url)
     if response.status_code != 200:
-        print("Something went wrong! Status code: " + str(response.status_code))
-        return 
+        print(f"Something went wrong! Status code: {response.status_code}")
+        return
     json_data_search = response.json()
     try:
         for meal in json_data_search.get("meals", []):

@@ -30,7 +30,7 @@ def plot2d(equation):
     #print (x)
     #print (y)
     plt.figure(num ='Plot 2D')
-    plt.plot(x,y,label = 'y = '+temp,color = 'black')
+    plt.plot(x, y, label=f'y = {temp}', color = 'black')
     plt.xlabel('X Axis')
     plt.ylabel('Y Axis')
     #plt.title(temp.upper())
@@ -115,7 +115,7 @@ window = sg.Window('Advanced Calculator', layout)
 # Event Loop to process "events" and get the "values" of the inputs
 while True:
     event, values = window.read()
-    if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+    if event in [sg.WIN_CLOSED, 'Cancel']: # if user closes window or clicks cancel
         break
     try:
         if values["-NORMAL-"]:
@@ -130,7 +130,7 @@ while True:
         elif values["-PLOT3D-"]:
             plot3d(values['-INPUT-'])
     except Exception as ex:
-        window['-OUTPUT-'].update("Error: " + str(ex))
+        window['-OUTPUT-'].update(f"Error: {str(ex)}")
 
 
 window.close()

@@ -12,8 +12,7 @@ def weather(key,region):
         "q":region,
         "aqi": "yes"
     })
-    data = response.json()
-    return data
+    return response.json()
 
 def downlaod_icon(icon):
     icon = "https:" + icon.replace("64x64", "128x128")
@@ -21,7 +20,7 @@ def downlaod_icon(icon):
     if req.status_code != 200:
         print("Could not load image")
         return
-    with open(os.path.dirname(os.path.realpath(__file__)) + '/icon.png', 'wb') as f:
+    with open(f'{os.path.dirname(os.path.realpath(__file__))}/icon.png', 'wb') as f:
         f.write(req.content)
 
 def autocomplete(values, key):
@@ -30,8 +29,7 @@ def autocomplete(values, key):
         "key":key,
         "q":values
     })
-    data = response.json()
-    return data
+    return response.json()
 
 
 
@@ -61,15 +59,47 @@ o3 = ""
 so2 = ""
 
 # All the stuff inside window.
-layout = [  
-    [sg.Text('This is a simple weather app! Enter your api key and region below:')],
-    [sg.Text("Get your API key", enable_events=True,key=f'-URL-', text_color='blue')],
-    [sg.Text('Api key'), sg.InputText(key='-KEY-', password_char='*', enable_events=True), sg.Button('Save key', key='-SAVE-'), sg.Button('Open key', key='-OPENKEY-')],
-    [sg.Text('Region'), sg.InputText(key='-REGION-', expand_x=True, enable_events=True, disabled=True)],
-    [sg.Listbox([],size=(20,5), expand_x=True, key="-REGIONLIST-", disabled=True, enable_events=True)],
+layout = [
+    [
+        sg.Text(
+            'This is a simple weather app! Enter your api key and region below:'
+        )
+    ],
+    [
+        sg.Text(
+            "Get your API key",
+            enable_events=True,
+            key='-URL-',
+            text_color='blue',
+        )
+    ],
+    [
+        sg.Text('Api key'),
+        sg.InputText(key='-KEY-', password_char='*', enable_events=True),
+        sg.Button('Save key', key='-SAVE-'),
+        sg.Button('Open key', key='-OPENKEY-'),
+    ],
+    [
+        sg.Text('Region'),
+        sg.InputText(
+            key='-REGION-', expand_x=True, enable_events=True, disabled=True
+        ),
+    ],
+    [
+        sg.Listbox(
+            [],
+            size=(20, 5),
+            expand_x=True,
+            key="-REGIONLIST-",
+            disabled=True,
+            enable_events=True,
+        )
+    ],
     [sg.Button('Ok'), sg.Button('Cancel')],
     [sg.Text('The weather in your region is: ')],
-    [sg.Text(f"""
+    [
+        sg.Text(
+            f"""
 Updated at {updated_at}
 Temperature: {temp_c}°C / {temp_f}°F
 Feels like : {feelslike_c}°C / {feelslike_f}°F
@@ -83,7 +113,11 @@ CO: {co}
 NO2: {no2}
 O3: {o3}
 SO2: {so2}
-""", key='-OUTPUT-'), sg.Image(data=icon, key='-ICON-')],
+""",
+            key='-OUTPUT-',
+        ),
+        sg.Image(data=icon, key='-ICON-'),
+    ],
 ]
 # Create the Window
 window = sg.Window('Weather App', layout)
@@ -96,7 +130,7 @@ window = sg.Window('Weather App', layout)
 while True:
     
     event, values = window.read()
-    if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+    if event in [sg.WIN_CLOSED, 'Cancel']: # if user closes window or clicks cancel
         break
     if event == 'Ok':
         data = weather(values['-KEY-'],values['-REGION-'])
@@ -136,23 +170,25 @@ SO2: {so2}
 """
         )
         downlaod_icon(icon)
-        window["-ICON-"].update(os.path.dirname(os.path.realpath(__file__)) + '/icon.png')
+        window["-ICON-"].update(
+            f'{os.path.dirname(os.path.realpath(__file__))}/icon.png'
+        )
     if event == '-URL-':
         webbrowser.open('https://www.weatherapi.com/signup.aspx')
     if event == '-SAVE-':
-        with open(os.path.dirname(os.path.realpath(__file__))+'/api.key', 'w') as f:
+        with open(f'{os.path.dirname(os.path.realpath(__file__))}/api.key', 'w') as f:
             f.write(values['-KEY-'])
         window["-REGION-"].update(disabled=False)
         window["-REGIONLIST-"].update(disabled=False)
     if event == '-OPENKEY-':
-        with open(os.path.dirname(os.path.realpath(__file__))+'/api.key', 'r') as f:
+        with open(f'{os.path.dirname(os.path.realpath(__file__))}/api.key', 'r') as f:
             window["-KEY-"].update(str(f.read()))
             f.close()
         window["-REGION-"].update(disabled=False)
         window["-REGIONLIST-"].update(disabled=False)
-    
+
     if event == '-REGION-':
-        
+
         data = autocomplete(values['-REGION-'],values['-KEY-'])
         try:
             list_list = []
@@ -163,16 +199,16 @@ SO2: {so2}
                 list_list.append(listbox_string)
             # json_data = json.loads(json.dumps(data[0]))
             # print(json_data)
-            
-            
+
+
             window["-REGIONLIST-"].update(list_list)
         except:
             pass
     if event == '-KEY-':
         window["-REGION-"].update(disabled=False)
         window["-REGIONLIST-"].update(disabled=False)
-    
+
     if event == '-REGIONLIST-':
         window["-REGION-"].update(values['-REGIONLIST-'][0])
-        
+
 window.close()

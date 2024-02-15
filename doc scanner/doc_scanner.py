@@ -53,22 +53,16 @@ def resize_maintain_aspect_ratio(image, target_size):
     # Calculate the scaling factor for width and height
     width_ratio = target_size[0] / image.shape[1]
     height_ratio = target_size[1] / image.shape[0]
-    
+
     # Choose the minimum scaling factor to maintain aspect ratio
     scaling_factor = min(width_ratio, height_ratio)
-    
+
     # Calculate the new dimensions
     new_width = int(image.shape[1] * scaling_factor)
     new_height = int(image.shape[0] * scaling_factor)
     new_dimensions = (new_width, new_height)
-    
-    # Resize the image
-    resized_image = cv2.resize(image, new_dimensions)
-    
 
-  
-
-    return resized_image
+    return cv2.resize(image, new_dimensions)
 
 
 def resie_rect():
