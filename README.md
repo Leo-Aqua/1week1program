@@ -57,3 +57,13 @@ Yup it really works. (as long as you aren't in space. sorry NASA)
 2. Hit `OK`
 
 ###### Yes I'm running out of ideas
+
+## Day 6 (15. Feb 2024)
+### Meal finder
+This program uses [www.themealdb.com](https://www.themealdb.com/) to get Meals, Images, etc.
+Search for meals and get a recipie for them. Thumbnail images are downloaded automatically and placed in the thumbnails folder.
+
+### Usage
+1. Open `meal_finder` and run `meal.py`
+
+###### My ideas are back! \(^v^)/
