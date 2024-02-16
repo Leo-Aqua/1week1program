@@ -67,3 +67,13 @@ Search for meals and get a recipie for them. Thumbnail images are downloaded aut
 1. Open `meal_finder` and run `meal.py`
 
 ###### My ideas are back! \(^v^)/
+
+## Day 7 (16. Feb 2024)
+### Snake
+
+Simple sanke game. But Spacecore would like it...
+
+I thought ending a python challenge with snake would be funny.
+
+### Usage
+open `snake` and run `snake.py`. Controls: W:up A:left S:down D:right
